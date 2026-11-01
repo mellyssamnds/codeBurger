@@ -1,6 +1,6 @@
 package app;
 
-import cardapio.Lanche;
+import cardapio.ItemCardapio;
 import pedido.Pedido;
 import util.Cores;
 
@@ -41,20 +41,20 @@ public class MenuConsole {
         return scanner.nextLine();
     }
 
-    public void exibirCardapio(List<Lanche> cardapio) {
+    public void exibirCardapio(List<ItemCardapio> cardapio) {
         System.out.println(Cores.VERMELHO + Cores.NEGRITO + "\n--- CARDÁPIO ---" + Cores.RESET);
         for (int i = 0; i < cardapio.size(); i++) {
-            Lanche l = cardapio.get(i);
-            System.out.printf(Cores.AZUL + "%d. " + Cores.RESET + "%s - " + Cores.VERDE + "R$ %.2f%n" + Cores.RESET, i + 1, l.getNome(), l.getPreco());
+            ItemCardapio item = cardapio.get(i);
+            System.out.printf(Cores.AZUL + "%d. " + Cores.RESET + "%s - " + Cores.VERDE + "R$ %.2f%n" + Cores.RESET, i + 1, item.getDescricao(), item.getPreco());
         }
     }
 
-    public int escolherLanche(List<Lanche> cardapio) {
+    public int escolherLanche(List<ItemCardapio> cardapio) {
         System.out.println(Cores.VERMELHO + Cores.NEGRITO + "\n--- CARDÁPIO ---" + Cores.RESET);
         System.out.println("Escolha um lanche pelo número:");
         for (int i = 0; i < cardapio.size(); i++) {
-            Lanche lanche = cardapio.get(i);
-            System.out.printf(Cores.AZUL + "%d. " + Cores.RESET + "%s - " + Cores.VERDE + "R$ %.2f%n" + Cores.RESET, i + 1, lanche.getNome(), lanche.getPreco());
+            ItemCardapio item = cardapio.get(i);
+            System.out.printf(Cores.AZUL + "%d. " + Cores.RESET + "%s - " + Cores.VERDE + "R$ %.2f%n" + Cores.RESET, i + 1, item.getDescricao(), item.getPreco());
         }
         System.out.print(Cores.AMARELO + Cores.NEGRITO + "Escolha o número do lanche (ou 0 para parar): " + Cores.RESET);
 
@@ -70,9 +70,30 @@ public class MenuConsole {
     }
 
     public boolean queroAdicional() {
-        System.out.println(Cores.VERMELHO + "Deseja adicionar itens ao seu lanche? (S/N)" + Cores.RESET);
+        System.out.print(Cores.AMARELO + "Deseja turbinar seu lanche? (S/N): " + Cores.RESET);
         String resposta = scanner.nextLine().trim().toUpperCase();
         return resposta.equals("S");
+    }
+
+    public int escolherAdicional() {
+        System.out.println(Cores.VERMELHO + "\n--- ADICIONAIS ---" + Cores.RESET);
+        System.out.println(Cores.AZUL + "1. " + Cores.RESET + "Cheddar (+ R$ 4,00)");
+        System.out.println(Cores.AZUL + "2. " + Cores.RESET + "Bacon Extra (+ R$ 6,00)");
+        System.out.println(Cores.AZUL + "3. " + Cores.RESET + "Carne Extra (+ R$ 13,00)");
+        System.out.println(Cores.AZUL + "4. " + Cores.RESET + "Cebola Caramelizada (+ R$ 5,00)");
+        System.out.println(Cores.AZUL + "5. " + Cores.RESET + "Mussarela (+ R$ 5,00)");
+        System.out.println(Cores.AZUL + "6. " + Cores.RESET + "Picles (+ R$ 3,00)");
+        System.out.println(Cores.AZUL + "7. " + Cores.RESET + "Banana Frita (+ R$ 4,00)");
+        System.out.print(Cores.AMARELO + "Escolha o adicional (0 para nenhum): " + Cores.RESET);
+        try {
+            int escolha = scanner.nextInt();
+            scanner.nextLine();
+            return escolha;
+        } catch (Exception e) {
+            scanner.nextLine();
+            System.out.println(Cores.VERMELHO + "Opção inválida!" + Cores.RESET);
+            return 0;
+        }
     }
 
     public void exibirPedido(Pedido pedido) {
@@ -80,8 +101,8 @@ public class MenuConsole {
         System.out.println("Cliente: " + Cores.ROXO + Cores.NEGRITO + pedido.getNomeCliente() + Cores.RESET);
 
         System.out.println("Itens:");
-        for (Lanche item : pedido.getItens()) {
-            System.out.printf(Cores.AZUL + "- " + Cores.RESET + "%s - " + Cores.VERDE + "R$ %.2f%n" + Cores.RESET, item.getNome(), item.getPreco());
+        for (ItemCardapio item : pedido.getItens()) {
+            System.out.printf(Cores.AZUL + "- " + Cores.RESET + "%s - " + Cores.VERDE + "R$ %.2f%n" + Cores.RESET, item.getDescricao(), item.getPreco());
         }
         System.out.printf(Cores.NEGRITO + "Total do pedido: " + Cores.VERDE + "R$ %.2f%n" + Cores.RESET, pedido.calcularTotal());
     }

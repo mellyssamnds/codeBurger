@@ -1,12 +1,13 @@
 package pedido;
 
+import cardapio.ItemCardapio;
 import cardapio.Lanche;
 import java.util.ArrayList;
 
 public class Pedido {
     private int numero;
     private String nomeCliente;
-    private ArrayList<Lanche> itens;
+    private ArrayList<ItemCardapio> itens;
 
     public Pedido(int numero, String nomeCliente) {
         this.numero = numero;
@@ -29,21 +30,21 @@ public class Pedido {
         this.nomeCliente = nomeCliente;
     }
 
-    public void adicionarItem(Lanche lanche) {
-        if (lanche == null) {
+    public void adicionarItem(ItemCardapio item) {
+        if (item == null) {
             throw new IllegalArgumentException("Lanche não pode ser nulo");
         }
-        itens.add(lanche);
+        itens.add(item);
     }
 
-    public ArrayList<Lanche> getItens() {
+    public ArrayList<ItemCardapio> getItens() {
         return itens;
     }
 
     public double calcularTotal() {
         double total = 0.0;
-        for (Lanche lanche : itens) {
-            total += lanche.getPreco();
+        for (ItemCardapio item : itens) {
+            total += item.getPreco();
         }
         return total;
     }

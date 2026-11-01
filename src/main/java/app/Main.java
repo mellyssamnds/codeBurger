@@ -1,9 +1,7 @@
 package app;
 
-import cardapio.Lanche;
+import cardapio.*;
 import pedido.Pedido;
-
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -29,22 +27,52 @@ public class Main {
                         escolhaLanche = menu.escolherLanche(sistema.getCardapio());
 
                         if (escolhaLanche > 0 && escolhaLanche <= sistema.getCardapio().size()) {
-                            Lanche modelo = sistema.getCardapio().get(escolhaLanche - 1);
 
-                            // REGRA DO PROJETO: Criar um NOVO objeto Lanche para não afetar o cardápio original
-                            Lanche novoLanche = new Lanche(modelo.getNome(), modelo.getPreco());
-                            pedido.adicionarItem(novoLanche);
+                            ItemCardapio novoItem = sistema.criarItemDoCardapio(escolhaLanche - 1);
 
-                            menu.exibirMensagem("Adicionado: " + novoLanche.getNome());
+                            while (menu.queroAdicional()) {
+                                int extra = menu.escolherAdicional();
+                                switch (extra) {
+                                    case 1:
+                                        novoItem = new ComCheddar(novoItem);
+                                        break;
+                                    case 2:
+                                        novoItem = new ComBaconExtra(novoItem);
+                                        break;
+                                    case 3:
+                                        novoItem = new ComCarneExtra(novoItem);
+                                        break;
+                                    case 4:
+                                        novoItem = new ComCebolaCaramelizada(novoItem);
+                                        break;
+                                    case 5:
+                                        novoItem = new ComMussarela(novoItem);
+                                        break;
+                                    case 6:
+                                        novoItem = new ComPicles(novoItem);
+                                        break;
+                                    case 7:
+                                        novoItem = new ComBanana(novoItem);
+                                        break;
+                                    case 0:
+                                        break;
+                                    default:
+                                        menu.exibirMensagem("Opção de adicional inválida");
+                                        break;
+                                }
+                            }
+
+                            pedido.adicionarItem(novoItem);
+                            menu.exibirMensagem("Adicionado: " + novoItem.getDescricao());
                         } else if (escolhaLanche != 0 && escolhaLanche != -1) {
-                            menu.exibirMensagem("Escolha inválida. Tente novamente.");
+                            menu.exibirMensagem("Escolha inválida. Tente novamente!");
                         }
                     } while (escolhaLanche != 0);
 
                     if (!pedido.getItens().isEmpty()) {
                         menu.exibirPedido(pedido);
                     } else {
-                        menu.exibirMensagem("Pedido cancelado (nenhum item adicionado).");
+                        menu.exibirMensagem("Pedido cancelado (nenhum item adicionado)");
                     }
                     break;
 
