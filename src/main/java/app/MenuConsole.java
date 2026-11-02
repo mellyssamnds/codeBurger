@@ -88,15 +88,24 @@ public class MenuConsole {
     }
 
     public boolean lerSimNao(String mensagem) {
-        System.out.print(Cores.AMARELO + mensagem + Cores.RESET);
-        String resposta = scanner.nextLine().trim().toUpperCase();
-        return resposta.equals("S");
+        while (true) {
+            System.out.print(Cores.AMARELO + mensagem + Cores.RESET);
+            String resposta = scanner.nextLine().trim().toUpperCase();
+
+            if (resposta.equals("S")) {
+                return true;
+            }
+
+            if (resposta.equals("N")) {
+                return false;
+            }
+
+            System.out.println(Cores.VERMELHO + "Resposta inválida! Digite apenas 'S' para Sim ou 'N' para Não." + Cores.RESET);
+        }
     }
 
     public boolean queroAdicional() {
-        System.out.print(Cores.AMARELO + "Deseja turbinar seu lanche? (S/N): " + Cores.RESET);
-        String resposta = scanner.nextLine().trim().toUpperCase();
-        return resposta.equals("S");
+        return lerSimNao("Deseja turbinar seu lanche? (S/N): ");
     }
 
     public int escolherAdicional() {
