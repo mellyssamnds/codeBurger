@@ -16,4 +16,9 @@ public class ComCheddar implements ItemCardapio {
     public double getPreco() {
         return item.getPreco() + 4.00;
     }
+
+    @Override
+    public String getNomeBase() {
+        return item.getNomeBase();
+    }
 }

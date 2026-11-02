@@ -16,4 +16,9 @@ public class ComMussarela implements ItemCardapio {
     public double getPreco() {
         return item.getPreco() + 5.00;
     }
+
+    @Override
+    public String getNomeBase() {
+        return item.getNomeBase();
+    }
 }

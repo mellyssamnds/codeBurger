@@ -16,4 +16,9 @@ public class ComCarneExtra implements ItemCardapio {
     public double getPreco() {
         return item.getPreco() + 13.00;
     }
+
+    @Override
+    public String getNomeBase() {
+        return item.getNomeBase();
+    }
 }

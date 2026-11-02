@@ -16,4 +16,9 @@ public class ComPicles implements ItemCardapio {
     public double getPreco() {
         return item.getPreco() + 3.00;
     }
+
+    @Override
+    public String getNomeBase() {
+        return item.getNomeBase();
+    }
 }

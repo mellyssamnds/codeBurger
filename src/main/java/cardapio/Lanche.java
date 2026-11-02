@@ -57,6 +57,7 @@ public class Lanche implements ItemCardapio {
         return tomate;
 
     }
+
     public void setTomate(boolean tomate) {
         this.tomate = tomate;
     }
@@ -67,6 +68,11 @@ public class Lanche implements ItemCardapio {
 
     public void setCebola(boolean cebola) {
         this.cebola = cebola;
+    }
+
+    @Override
+    public String getNomeBase() {
+        return this.nome;
     }
 
     @Override
