@@ -76,9 +76,22 @@ public class Main {
                     break;
 
                 case 5: {
-                    double totalDia = sistema.calcularTotalDoDia();
+                    if (menu.lerSimNao("Deseja registrar gorjeta? (S/N): ")) {
+                        System.out.print("Valor da gorjeta: R$ ");
+                        double gorjeta = menu.lerDouble();
+                        sistema.registrarGorjeta(gorjeta);
+                    }
+
+                    sistema.registrarTransacoesDoDia();
+
+                    double totalPedidos = sistema.calcularTotalDoDia();
+                    double totalGorjetas = sistema.getCaixa().getGorjetas();
+                    double totalGeral = sistema.getCaixa().getFechamentoTotal();
+
                     java.util.Set<String> combinacoes = sistema.getCombinacoesDiferentes();
-                    menu.exibirFechamentoDoDia(totalDia, combinacoes);
+                    java.util.Set<String> bases = sistema.getLanchesBaseDiferentes();
+
+                    menu.exibirFechamentoDoDia(totalPedidos, totalGorjetas, totalGeral, combinacoes, bases);
                     break;
                 }
 

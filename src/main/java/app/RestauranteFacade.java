@@ -4,14 +4,18 @@ import cardapio.ItemCardapio;
 import cardapio.LancheFactory;
 import pedido.GerenciadorPedidos;
 import pedido.Pedido;
+import financeiro.Caixa;
+import financeiro.Transacao;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 public class RestauranteFacade {
     private GerenciadorPedidos gerenciador;
     private List<ItemCardapio> cardapio;
+    private Caixa caixa = Caixa.getInstance();
 
     public RestauranteFacade() {
         this.gerenciador = new GerenciadorPedidos();
@@ -57,5 +61,24 @@ public class RestauranteFacade {
 
     public double calcularTotalDoDia() {
         return gerenciador.calcularTotalDoDia();
+    }
+
+    public void registrarGorjeta(double valor) {
+        caixa.registrarGorjeta(valor);
+    }
+
+    public Caixa getCaixa() {
+        return caixa;
+    }
+
+    public void registrarTransacoesDoDia() {
+        for (Pedido p : gerenciador.getPedidos()) {
+            Transacao t = new Transacao(p.getNumero(), p.calcularTotal());
+            caixa.registrarTransacao(t);
+        }
+    }
+
+    public Set<String> getLanchesBaseDiferentes() {
+        return gerenciador.getLanchesBaseDiferentes();
     }
 }

@@ -36,6 +36,16 @@ public class GerenciadorPedidos {
         return combinacoes;
     }
 
+    public Set<String> getLanchesBaseDiferentes() {
+        Set<String> bases = new HashSet<>();
+        for (Pedido p : pedidos.values()) {
+            for (ItemCardapio item : p.getItens()) {
+                bases.add(item.getNomeBase());
+            }
+        }
+        return bases;
+    }
+
     public void cancelarPedido(int numero) {
         pedidos.remove(numero);
     }

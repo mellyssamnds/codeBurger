@@ -87,8 +87,8 @@ public class MenuConsole {
         }
     }
 
-    private boolean lerSimNao(String mensagem) {
-        System.out.print(mensagem);
+    public boolean lerSimNao(String mensagem) {
+        System.out.print(Cores.AMARELO + mensagem + Cores.RESET);
         String resposta = scanner.nextLine().trim().toUpperCase();
         return resposta.equals("S");
     }
@@ -172,9 +172,17 @@ public class MenuConsole {
         }
     }
 
-    public void exibirFechamentoDoDia(double total, java.util.Set<String> combinacoes) {
+    public void exibirFechamentoDoDia(double totalPedidos, double gorjetas, double totalGeral, java.util.Set<String> combinacoes, java.util.Set<String> bases) {
         System.out.println(Cores.VERMELHO + Cores.NEGRITO + "\n=== FECHAMENTO DO DIA ===" + Cores.RESET);
-        System.out.printf("Total do dia: " + Cores.VERDE + Cores.NEGRITO + "R$ %.2f%n" + Cores.RESET, total);
+
+        System.out.printf("Vendas (pedidos): " + Cores.VERDE + "R$ %.2f%n" + Cores.RESET, totalPedidos);
+        System.out.printf("Gorjetas:         " + Cores.VERDE + "R$ %.2f%n" + Cores.RESET, gorjetas);
+        System.out.printf(Cores.NEGRITO + "TOTAL GERAL:      " + Cores.VERDE + "R$ %.2f%n" + Cores.RESET, totalGeral);
+
+        System.out.println(Cores.AZUL + "\nLanches base diferentes vendidos: " + bases.size() + Cores.RESET);
+        for (String base : bases) {
+            System.out.println("- " + base);
+        }
 
         System.out.println(Cores.AZUL + "\nCombinações diferentes vendidas: " + combinacoes.size() + Cores.RESET);
         for (String comb : combinacoes) {
@@ -184,6 +192,18 @@ public class MenuConsole {
 
     public void exibirMensagem(String mensagem) {
         System.out.println(mensagem);
+    }
+
+    public double lerDouble() {
+        try {
+            double valor = scanner.nextDouble();
+            scanner.nextLine();
+            return valor;
+        } catch (Exception e) {
+            scanner.nextLine();
+            System.out.println(Cores.VERMELHO + "Valor inválido. Por favor, digite um número!" + Cores.RESET);
+            return 0.0;
+        }
     }
 
     public void fecharScanner() {
