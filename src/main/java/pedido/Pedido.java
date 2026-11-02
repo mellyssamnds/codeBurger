@@ -41,6 +41,14 @@ public class Pedido {
         return itens;
     }
 
+    public void removerItem(int index) {
+        if (index >= 0 && index < itens.size()) {
+            itens.remove(index);
+        } else {
+            throw new IllegalArgumentException("Índice de item inválido!");
+        }
+    }
+
     public double calcularTotal() {
         double total = 0.0;
         for (ItemCardapio item : itens) {

@@ -47,6 +47,14 @@ public class RestauranteFacade {
         return gerenciador.getPedidos();
     }
 
+    public void cancelarPedido(int numero) {
+        gerenciador.cancelarPedido(numero);
+    }
+
+    public java.util.Set<String> getCombinacoesDiferentes() {
+        return gerenciador.getCombinacoesDiferentes();
+    }
+
     public double calcularTotalDoDia() {
         return gerenciador.calcularTotalDoDia();
     }
